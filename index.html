@@ -18,7 +18,7 @@
     
     
       
-        <title>Calculation Docs</title>
+        <title>Ticket engine Docs</title>
       
     
     
@@ -78,7 +78,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Calculation Docs" class="md-header__button md-logo" aria-label="Calculation Docs" data-md-component="logo">
+    <a href="." title="Ticket engine Docs" class="md-header__button md-logo" aria-label="Ticket engine Docs" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -92,7 +92,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Calculation Docs
+            Ticket engine Docs
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -136,13 +136,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Calculation Docs" class="md-nav__button md-logo" aria-label="Calculation Docs" data-md-component="logo">
+    <a href="." title="Ticket engine Docs" class="md-nav__button md-logo" aria-label="Ticket engine Docs" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
-    Calculation Docs
+    Ticket engine Docs
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -250,47 +250,7 @@
         
   
   <span class="md-ellipsis">
-    Logic explanation
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="tutorials/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Tutorials
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="how-to-guides/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    How to guides
+    Explanation
   </span>
   
 
@@ -311,6 +271,46 @@
   
   <span class="md-ellipsis">
     Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="limitations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Limitations and Improvements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tutorials/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tutorials
   </span>
   
 
@@ -400,14 +400,14 @@
 <code>ticket engine</code> project 
 Its aim is to give you a LLM based software, which analyzes IT tickets 
 and recommends possible solutions based on known, past IT tickets. The
-software comes with a gradio frontend and a FLASK REST API.</p>
+software comes with multiple possibilities to serve.</p>
 <h2 id="table-of-contents">Table Of Contents</h2>
 <p>The documentation consists of four separate parts:</p>
 <ol>
-<li><a href="tutorials/">Tutorials</a></li>
-<li><a href="how-to-guides/">How-To Guides</a></li>
-<li><a href="reference/">Reference</a></li>
 <li><a href="explanation/">Explanation</a></li>
+<li><a href="reference/">Reference</a></li>
+<li><a href="tutorials/">Tutorials</a></li>
+<li><a href="limitations/">How-To Guides</a></li>
 </ol>
 <p>Quickly find what you're looking for depending on
 your use case by looking at the different pages.</p>
@@ -421,10 +421,11 @@ your use case by looking at the different pages.</p>
 <a id="ticket_engine"></a>
   <div class="doc doc-contents first">
   
-      <p>Do math with your own functions.</p>
+      <p>Recommends an action for an IT Issue.</p>
 <p>Modules exported by this package:</p>
 <ul>
-<li><code>calculations</code>: Provide several sample math calculations.</li>
+<li><code>issue</code>: Provide an IT Ticket Issue object</li>
+<li><code>ticket_engine</code>: Provide a recommendation engine for Issues</li>
 </ul>
 
   

@@ -12,7 +12,7 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="../tutorials/">
+        <link rel="next" href="../reference/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Logic explanation - Calculation Docs</title>
+        <title>Explanation - Ticket engine Docs</title>
       
     
     
@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#the-background-of-the-ticket-engine" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -75,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Calculation Docs" class="md-header__button md-logo" aria-label="Calculation Docs" data-md-component="logo">
+    <a href=".." title="Ticket engine Docs" class="md-header__button md-logo" aria-label="Ticket engine Docs" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -89,13 +94,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Calculation Docs
+            Ticket engine Docs
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Logic explanation
+              Explanation
             
           </span>
         </div>
@@ -133,13 +138,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Calculation Docs" class="md-nav__button md-logo" aria-label="Calculation Docs" data-md-component="logo">
+    <a href=".." title="Ticket engine Docs" class="md-nav__button md-logo" aria-label="Ticket engine Docs" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
-    Calculation Docs
+    Ticket engine Docs
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -177,57 +182,112 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Explanation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Logic explanation
+    Explanation
   </span>
   
 
       </a>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tutorials/" class="md-nav__link">
         
-  
-  <span class="md-ellipsis">
-    Tutorials
-  </span>
-  
 
-      </a>
-    </li>
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
-
+  
+  
     
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
+        <li class="md-nav__item">
+  <a href="#the-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      The use case
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assumptions
+    </span>
+  </a>
   
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building blocks
+    </span>
+  </a>
   
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
   
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core
+    </span>
+  </a>
   
-    <li class="md-nav__item">
-      <a href="../how-to-guides/" class="md-nav__link">
-        
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      recommendations
+    </span>
+  </a>
   
-  <span class="md-ellipsis">
-    How to guides
-  </span>
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serving" class="md-nav__link">
+    <span class="md-ellipsis">
+      serving
+    </span>
+  </a>
   
-
-      </a>
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -244,6 +304,46 @@
   
   <span class="md-ellipsis">
     Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../limitations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Limitations and Improvements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tutorials
   </span>
   
 
@@ -269,6 +369,79 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      The use case
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assumptions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building blocks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      recommendations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serving" class="md-nav__link">
+    <span class="md-ellipsis">
+      serving
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -283,25 +456,91 @@
                   
 
 
-  <h1>Logic explanation</h1>
-
-<p>This part of the project documentation focuses on an
-<strong>understanding-oriented</strong> approach. You'll get a
-chance to read about the background of the project,
-as well as reasoning about how it was implemented.</p>
+<h1 id="the-background-of-the-ticket-engine">The background of the ticket engine</h1>
+<p>The ticket engine is an engine, helps IT service employees
+in solving IT tickets by giving them hints and/or recommendations
+how to solve a new ticket. </p>
+<h2 id="the-use-case">The use case</h2>
+<p>As described in the requirements, 
+"A lot of the tickets the client handles are
+redundant and might just need a little tweak to
+solve the problem of the client's customer."</p>
+<p>I use this data to build an engine.</p>
+<h2 id="assumptions">Assumptions</h2>
+<p>The following assumptions are made, as it is not otherwise statet:</p>
 <blockquote>
-<p><strong>Note:</strong> Expand this section by considering the
-following points:</p>
+<p>Information about solutions are only present in the past tickets.</p>
 </blockquote>
+<p>This means, that one cannot use the general knowledge of LLMs to 
+provide helpful solutions. This assumption is reasonable, if the 
+infrastructure is sufficient complex, so that general/basic IT knowledge
+like LLMs have is not helpful</p>
+<blockquote>
+<p>Date and time of the tickets are not significant.</p>
+</blockquote>
+<p>This is a simplification, as IT tickets correlate in time. However, our 
+set of known issues is small and obtained in a short time period (one month). 
+In addition, it might be helpful if the engine is insensitive of time, 
+in order to find systematic issues which appear infrequently.</p>
+<blockquote>
+<p>If a solution to ticket did not work, one can't infer any information
+of that solution.</p>
+</blockquote>
+<p>This simplification is made due to time constraints, 
+one can clearly learn something from things that didn't work. 
+Administrators should not try things which are proven to not work.
+However, one needs to be very careful that one applies this information
+only in the proper context, as exact that solution could work
+for a slightly different ticket. </p>
+<blockquote>
+<p>All Agents work equally efficient</p>
+</blockquote>
+<p>This assumption is to avoid discrimination, thus I do not use the agent name.</p>
+<h2 id="building-blocks">Building blocks</h2>
+<p>The assumptions mainly define the logic of the engine. 
+There are two building blocks of the proposed solution:</p>
 <ul>
-<li>Give context and background on your library</li>
-<li>Explain why you created it</li>
-<li>Provide multiple examples and approaches of how
-    to work with it</li>
-<li>Help the reader make connections</li>
-<li>Avoid writing instructions or technical descriptions
-    here</li>
+<li><a href="../reference/#ticket_engine.Issue.issue">Issue</a>:
+An Issue in the implementation is not only the relvant text information 
+about the IT issue, but also contains derived representations like embeddings.</li>
+<li><a href="../reference/#ticket_engine.ticket_engine.ticket_engine">engine</a>:
+The engine itself uses Issues (known and unknown), is able to 
+infer recommended actions or other information to new tickets, and
+has various possibilities to serve.</li>
 </ul>
+<h2 id="preprocessing">Preprocessing</h2>
+<p>The assumptions define the preprocessing of the training issues:
+- remove training issue when the solution did not work
+- take only "Issue", "Category", "description", and "solution" column </p>
+<h2 id="core">Core</h2>
+<p>The idea of this engine is, for a given new issue, 
+to search for similar (or the most similar) issues 
+where the solution is known and propose these 
+solutions to the agent. 
+To this end, we use a semantic embedding provided from
+aleph alpha to represent the each of the string information
+(Issue, Category, description) in terms of float vectors.</p>
+<blockquote>
+<p><strong>similarity score:</strong> </p>
+<p>score = mean(cos(issue_1,issue_2), cos(category_1,category_2), cos(description_1,description_2))$ </p>
+<p>where cos is the cosine similarity between two vectors and the
+arguments are the respective embeddings.</p>
+</blockquote>
+<p>There is a reason to take the arithmetic mean, because that
+weights all pieces of information equally and also honors the fact, 
+that boundaries between categories seem blurry 
+(I believe that category is not a 100% discriminator).</p>
+<h2 id="recommendations">recommendations</h2>
+<p>For a given Issue, the similarities to known issues are computed 
+and the solutions delivered. Multiple ways can be thought of:
+- recommend the solution to the most similar issue
+- recommend the solutions of the n-most similar issues with 
+a threshold on the score
+- deliver the score as indication of certainty of the model</p>
+<h2 id="serving">serving</h2>
+<p>One can think of multiple ways to serve the results:
+- gradio app to interactively enter issues and generate responses
+- FLASK REST API to automatically generate responses for every new ticket</p>
 
 
 
