@@ -1,8 +1,10 @@
 # ticket_engine/__init__.py
 
-"""Do math with your own functions.
+"""Recommends an action for an IT Issue.
 
 Modules exported by this package:
 
-- `calculations`: Provide several sample math calculations.
+- `issue`: Provide an IT Ticket Issue object
+- `ticket_engine`: Provide a recommendation engine for Issues
+
 """

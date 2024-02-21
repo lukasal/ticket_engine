@@ -1,5 +1,5 @@
 # mkdocs.yml
-site_name: Calculation Docs
+site_name: Ticket engine Docs
 
 theme:
   name: "material"
@@ -9,7 +9,7 @@ plugins:
 
 nav:
   - Intro: index.md
-  - Logic explanation: explanation.md
-  - tutorials.md
-  - how-to-guides.md
+  - Explanation: explanation.md
   - reference.md
+  - limitations.md
+  - tutorials.md
