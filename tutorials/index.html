@@ -18,7 +18,7 @@
     
     
       
-        <title>Tutorials - Ticket engine Docs</title>
+        <title>Tutorial - Ticket engine Docs</title>
       
     
     
@@ -61,6 +61,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#tutorial" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -93,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tutorials
+              Tutorial
             
           </span>
         </div>
@@ -235,16 +240,57 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Tutorial
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Tutorials
+    Tutorial
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -267,6 +313,25 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -281,9 +346,30 @@
                   
 
 
-  <h1>Tutorials</h1>
+<h1 id="tutorial">Tutorial</h1>
+<p>Get started with the Ticket Engine! </p>
+<p>To get started, you need to install the package,
+an AlephAlpha authenticate token (see webpage), 
+and training tickets (in form of csv, xlsx, json). 
+You can also use test tickets to see what recommendations it will generate.
+You can then apply this example code to start the ticket engine:</p>
+<h2 id="code-example">Code example</h2>
+<pre><code>from ticket_engine import Issue, TicketEngine
 
-<p>tbd</p>
+AA_TOKEN= &quot;PLEASE_FILL&quot;
+folder_path = &quot;PLEASE_FILL&quot;
+test_tickets_path = &quot;PLEASE_FILL&quot;
+
+engine = TicketEngine(folder_path, test_tickets_path, AA_TOKEN)
+</code></pre>
+<p>There are several frontends to choose from:</p>
+<pre><code>engine.gradio_df()
+</code></pre>
+<p>Will display a Gradio app where you can enter ticket information on a tabular form and compute
+the recommendations. It will show the test issues as example.</p>
+<pre><code>engine.gradio_single()
+</code></pre>
+<p>will display a Gradio app with a formular to enter ticket information. It will generate a response.</p>
 
 
 
