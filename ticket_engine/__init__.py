@@ -8,3 +8,12 @@ Modules exported by this package:
 - `ticket_engine`: Provide a recommendation engine for Issues
 
 """
+
+from .ticket_issue import (
+Issue
+)
+
+from .ticket_engine import (
+TicketEngine
+)
+

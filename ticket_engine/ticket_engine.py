@@ -1,4 +1,15 @@
-class ticket_engine:
+import os
+import gradio as gr
+import pandas as pd
+import sys
+print(sys.path)
+from ticket_engine.ticket_issue import Issue
+
+from aleph_alpha_client import (
+    Client
+)
+
+class TicketEngine:
     """This class builds a ticket engine
 
     A ticket engine is an object which can recommend an
@@ -12,7 +23,7 @@ class ticket_engine:
             self,
             training_folder: str,
             test_data_path: str,
-            AAtoken: str
+            AA_TOKEN: str
     ):
         """Initialization of the issue object
 
@@ -25,14 +36,15 @@ class ticket_engine:
         """
         self.training_folder = training_folder
         self.test_data_path = test_data_path
+        self.client = Client(token=AA_TOKEN)
 
         # initialize training data
         self.training_df = self.load_training_issues(training_folder)
-        self.training_issues = self.preprocess_training_issues(self.training_df).apply(lambda row: Issue(*row),
+        self.training_issues = self.preprocess_training_issues(self.training_df).apply(lambda row: Issue(self.client, *row),
                                                                                        axis=1).tolist()
         self.test_df = pd.read_csv(test_data_path)
-        self.test_df = test_tickets[["Issue", "Category", "Description"]]
-        self.client = Client(token=AA_TOKEN)
+        self.test_df = self.test_df[["Issue", "Category", "Description"]]
+
 
     def preprocess_training_issues(self, df):
         """ Preprocessing function for the training issues
@@ -96,7 +108,7 @@ class ticket_engine:
 
         return combined_df
 
-    def recommend(self, test_issue: Issue = None, output="value"):
+    def recommend(self, test_issue: "Issue" = None, output="value"):
         """ Computes recommendations for a test_case
 
         This function reads in all xlsx, csv, and json files in the given folder, and creates a dataframe,
@@ -118,7 +130,7 @@ class ticket_engine:
         results = [
             {
                 "solution": known_issue.solution,
-                "score": known_issue.score_input(test_issue),
+                "score": known_issue.score_issue(test_issue),
             }
             for known_issue in self.training_issues
         ]
@@ -150,7 +162,7 @@ class ticket_engine:
         outputs = [gr.Textbox(label="You can try the following:")]
         # the inference function
         def infer_single(issue, category, description):
-            return self.recommend(Issue(issue, category, description))
+            return self.recommend(Issue(self.client, issue, category, description))
 
         demo = gr.Interface(
             fn=infer_single,
@@ -180,7 +192,7 @@ class ticket_engine:
         examples = self.test_df
         # the inference function
         def infer_df(input_dataframe):
-            return input_dataframe.apply(lambda row: self.recommend(test_issue=Issue(*row)), axis=1).to_frame(
+            return input_dataframe.apply(lambda row: self.recommend(test_issue=Issue(self.client, *row)), axis=1).to_frame(
                 name="recommendation for solution with percentage likelihood")
 
         gr.Interface(fn=infer_df, inputs=inputs, outputs=outputs, examples=[[examples]]).launch(share=True)

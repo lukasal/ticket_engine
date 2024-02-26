@@ -13,8 +13,9 @@ asking if this helps, and suggest 2nd best if not and so on
 - adapt serving routine to clients needs
 
 ## Productionalization
+- include checks on schema, types, values etc in functions
 - create test cases for package
 - host on docker server in cloud or on premise (client)
-- build up database for past tickets so one can consume them esily
+- build up database for past tickets so one can consume them easily
 - use CI/CD & MLOps to retrain,
 update, integrate new versions
