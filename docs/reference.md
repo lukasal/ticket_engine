@@ -3,5 +3,5 @@ an **information-oriented** approach. Use it as a
 reference for the technical implementation of the
 `ticket engine` project code.
 
-::: ticket_engine.issue
-::: ticket_engine.ticket_engine
+::: src.ticket_engine.ticket_issue
+::: src.ticket_engine.ticket_engine

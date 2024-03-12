@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ticket_recommender.iml" filepath="$PROJECT_DIR$/.idea/ticket_recommender.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ticket_engine.iml" filepath="$PROJECT_DIR$/.idea/ticket_engine.iml" />
     </modules>
   </component>
 </project>

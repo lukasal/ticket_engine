@@ -8,7 +8,16 @@ from aleph_alpha_client import (
 )
 
 class Issue:
-    """This class defines a IT Issue"""
+    """This class defines a IT Issue
+
+       Attributes:
+           issue: The theme of an issue
+           category: The category of an issue, single word
+           description: The extensive description of an issue
+           solution: The actions taken to resolve an issue
+           client: The aleph alpha client
+
+    """
 
     def __init__(
             self,
@@ -18,19 +27,7 @@ class Issue:
             description: str = "",
             solution: str = ""
     ):
-        """Initialization of the issue object
 
-            This function reads in all informations of an issue and
-            embeds the texts using Aleph Alphas API
-            Args:
-                issue: The theme of an issue
-                category: The category of an issue, single word
-                description: The extensive description of an issue
-                solution: The actions taken to resolve an issue
-                client: The aleph alpha client
-            Returns:
-                Issue: An initialized issue object
-        """
         self.issue = issue
         self.category = category
         self.description = description
@@ -44,10 +41,10 @@ class Issue:
 
             This function reads in all informations of an issue and
             embeds the texts using Aleph Alphas API
-            Args:
-                self: The issue object
+
             Returns:
-                list: List of embeddings
+                List of embeddings
+
         """
         return [self._embed(Prompt.from_text(prompt)) for prompt in [self.issue, self.category, self.description]]
 
@@ -56,10 +53,9 @@ class Issue:
 
 
             Args:
-                self: The issue object
                 Prompt: An Promt object
             Returns:
-                list: embedding vector
+                embedding list
         """
         params = {
             "prompt": prompt,
@@ -77,8 +73,10 @@ class Issue:
             Args:
                 embedding_1: first embedding
                 embedding_2: first embedding
+
             Returns:
-                float: cosine similarity
+                cosine similarity
+
         """
         sumxx, sumxy, sumyy = 0, 0, 0
         for i in range(len(embedding_1)):
@@ -97,10 +95,11 @@ class Issue:
             a similarity score of two issues is computed.
 
             Args:
-                self: first Issue
-                input: Issue
+                issue2: Issue
+
             Returns:
-                float: cosine similarity
+                cosine similarity
+
         """
         embeddings = list(zip(self.embeddings, issue2.embeddings))
         # pdb.set_trace()

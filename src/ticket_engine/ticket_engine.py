@@ -1,8 +1,6 @@
 import os
 import gradio as gr
 import pandas as pd
-import sys
-print(sys.path)
 from ticket_engine.ticket_issue import Issue
 
 from aleph_alpha_client import (
@@ -17,6 +15,10 @@ class TicketEngine:
     successfully solved tickets.
     It is shipped with gradio frontends,
     but it can be extended to other APIs
+
+    Attributes:
+        training_folder: Path to folder where the training data is stored
+        test_data_path: Path to a file with test issues which are used as examples
     """
 
     def __init__(
@@ -25,15 +27,7 @@ class TicketEngine:
             test_data_path: str,
             AA_TOKEN: str
     ):
-        """Initialization of the issue object
 
-
-             Args:
-                 training_folder: Path to folder where the training data is stored
-                 test_data_path: Path to a file with test issues which are used as examples
-             Returns:
-                 ticket Engine: An initialized ticket engine, which is able to recommend actions
-        """
         self.training_folder = training_folder
         self.test_data_path = test_data_path
         self.client = Client(token=AA_TOKEN)
@@ -46,7 +40,7 @@ class TicketEngine:
         self.test_df = self.test_df[["Issue", "Category", "Description"]]
 
 
-    def preprocess_training_issues(self, df):
+    def preprocess_training_issues(self, df : pd.DataFrame):
         """ Preprocessing function for the training issues
 
         This function preprocesses the training data:
@@ -64,7 +58,7 @@ class TicketEngine:
 
         return df[["Issue", "Category", "Description", "Resolution"]]
 
-    def load_training_issues(self, folder_path):
+    def load_training_issues(self, folder_path: str):
         """ Loads issues for training the model
 
         This function reads in all xlsx, csv, and json files in the given folder, and creates a dataframe,
@@ -72,8 +66,9 @@ class TicketEngine:
 
         Args:
             folder_path: An absolute path to the files with the data for known issues
+
         Returns:
-            pandas.dataframe: A dataframe with all the data present in the input folder concatenated
+            combined_df: A dataframe with all the data present in the input folder concatenated
 
         """
 
@@ -109,19 +104,20 @@ class TicketEngine:
         return combined_df
 
     def recommend(self, test_issue: "Issue" = None, output="value"):
-        """ Computes recommendations for a test_case
+        """ Computes recommendations for a test_issue
 
         This function reads in all xlsx, csv, and json files in the given folder, and creates a dataframe,
         where the data from all files is concatenated.
 
         Args:
-            test_case: List of 3 entries (Issue theme, category, description
+            test_issue: List of 3 entries (Issue theme, category, description
             output: Three options are to choose from
                 - "value": returns a proposed action with score
                 - "solution": returns the recommended action as string
                 - "df: retruns a df with solutions and scores
         Returns:
             string / df: depending on output variable
+
         """
         assert bool(test_issue), "Must provide issue in form of a list."
         output_modes = ["value", "df", "solution"]
@@ -153,6 +149,7 @@ class TicketEngine:
 
         Returns:
             gradio frontend
+
         """
         # compute choices for category, so that one can only choose between existing categories
         choices = list(self.training_df['Category'].unique())
@@ -182,6 +179,7 @@ class TicketEngine:
 
          Returns:
              gradio frontend
+
          """
         # define gradio components
         inputs = [gr.Dataframe(row_count=(1, "dynamic"), col_count=(3, "fixed"), label="Input Data", interactive=1,

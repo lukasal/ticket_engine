@@ -13,3 +13,9 @@ nav:
   - reference.md
   - limitations.md
   - tutorials.md
+  - conduct.md
+  - contributing.md
+  - changelog.md
+
+watch:
+  - src
