@@ -16,16 +16,26 @@ The documentation consists of four separate parts:
 Quickly find what you're looking for depending on
 your use case by looking at the different pages.
 
-## Project Overview
-
-::: ticket_engine
-
 ## Installation
 
+Set up a python environment with at least python 3.10, then you can install the package via:
 ```bash
-$ pip install ticket_engine
+pip install -i https://test.pypi.org/simple/ ticket_engine
+```
+
+As the package is on the test server, you will need to install the dependencies manually, in a requirements.txt file.
+```
+pandas>=2.2.1
+statistics>=1.0.3.5
+gradio>=4.19.2
+openpyxl>=3.1.2
+aleph_alpha_client>=7.0.1
+```
+
+```bash
+conda install --file ./requirements.txt 
 ```
 
 ## Acknowledgements
 
-I want to thank aleph alpha for the opportunity to present this show case.
+I want to thank all collaborators for the support and opportunity to work with them.

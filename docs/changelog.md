@@ -1,6 +1,6 @@
-# Changelog
+## v0.1.3 (15/03/2024)
 
-<!--next-version-placeholder-->
+- added Flask endpoint 
 
 ## v0.1.1 (26/02/2024)
 

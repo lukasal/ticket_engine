@@ -33,3 +33,10 @@ engine.gradio_single()
 ```
 
 will display a Gradio app with a formular to enter ticket information. It will generate a response.
+
+```
+engine.flask_endpoint()
+```
+
+will start a flask server which provides a rest endpoint under ```/recommend``` with a POST method. 
+Strings for issue, category and description need to be provided in the body of the request.

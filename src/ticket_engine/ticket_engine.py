@@ -1,5 +1,6 @@
 import os
 import gradio as gr
+from flask import (Flask, g, request)
 import pandas as pd
 from ticket_engine.ticket_issue import Issue
 
@@ -194,3 +195,49 @@ class TicketEngine:
                 name="recommendation for solution with percentage likelihood")
 
         gr.Interface(fn=infer_df, inputs=inputs, outputs=outputs, examples=[[examples]]).launch(share=True)
+
+    from flask import Flask
+
+    def flask_endpoint(self):
+        """ Creates a flask http REST endpoint to create recommendations
+
+        This function starts a flask server where one can
+        get recommendations through a REST API
+
+        Returns:
+            flask server
+
+        """
+        # create and configure the app
+        app = Flask(__name__, instance_relative_config=True)
+        app.config.from_mapping(
+            SECRET_KEY='dev',
+            ENGINE= self
+        )
+
+        # API endpoint
+        @app.route('/recommend', methods=['POST'])
+        def recommend():
+            issue = request.form['issue']
+            category = request.form['category']
+            description = request.form['description']
+            error = None
+
+            if not issue:
+                error = 'Issue is required.'
+
+            if not category:
+                error = 'Category is required.'
+
+            if not description:
+                error = 'Description is required.'
+
+            if error is not None:
+                flash(error)
+
+            else:
+                with app.app_context():
+                    return app.config['ENGINE'].recommend(Issue(app.config['ENGINE'].client, issue, category, description))
+            return abort(400, 'Invalid input data')
+
+        app.run()
