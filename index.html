@@ -205,18 +205,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-overview" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Project Overview
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ticket_engine" class="md-nav__link">
-    <span class="md-ellipsis">
-      ticket_engine
+      Installation
     </span>
   </a>
   
@@ -319,6 +310,66 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conduct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -353,18 +404,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-overview" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Project Overview
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ticket_engine" class="md-nav__link">
-    <span class="md-ellipsis">
-      ticket_engine
+      Installation
     </span>
   </a>
   
@@ -411,43 +453,21 @@ software comes with multiple possibilities to serve.</p>
 </ol>
 <p>Quickly find what you're looking for depending on
 your use case by looking at the different pages.</p>
-<h2 id="project-overview">Project Overview</h2>
-
-
-<div class="doc doc-object doc-module">
-
-
-
-<a id="ticket_engine"></a>
-  <div class="doc doc-contents first">
-  
-      <p>Recommends an action for an IT Issue.</p>
-<p>Modules exported by this package:</p>
-<ul>
-<li><code>issue</code>: Provide an IT Ticket Issue object</li>
-<li><code>ticket_engine</code>: Provide a recommendation engine for Issues</li>
-</ul>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div><h2 id="acknowledgements">Acknowledgements</h2>
-<p>I want to thank aleph alpha for the opportunity to present this show case.</p>
+<h2 id="installation">Installation</h2>
+<p>Set up a python environment with at least python 3.10, then you can install the package via:</p>
+<pre><code class="language-bash">pip install -i https://test.pypi.org/simple/ ticket_engine
+</code></pre>
+<p>As the package is on the test server, you will need to install the dependencies manually, in a requirements.txt file.</p>
+<pre><code>pandas&gt;=2.2.1
+statistics&gt;=1.0.3.5
+gradio&gt;=4.19.2
+openpyxl&gt;=3.1.2
+aleph_alpha_client&gt;=7.0.1
+</code></pre>
+<pre><code class="language-bash">conda install --file ./requirements.txt 
+</code></pre>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<p>I want to thank all collaborators for the support and opportunity to work with them.</p>
 
 
 
