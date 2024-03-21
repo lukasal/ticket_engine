@@ -3,9 +3,10 @@ import gradio as gr
 from flask import (Flask, g, request)
 import pandas as pd
 from ticket_engine.ticket_issue import Issue
+import pdb
 
 from aleph_alpha_client import (
-    Client
+    Client, Prompt, CompletionRequest
 )
 
 class TicketEngine:
@@ -34,9 +35,10 @@ class TicketEngine:
         self.client = Client(token=AA_TOKEN)
 
         # initialize training data
-        self.training_df = self.load_training_issues(training_folder)
-        self.training_issues = self.preprocess_training_issues(self.training_df).apply(lambda row: Issue(self.client, *row),
-                                                                                       axis=1).tolist()
+        self.training_df = self.preprocess_training_issues(self.load_training_issues(training_folder))
+        self.training_issues = self.training_df.apply(lambda row: Issue(self.client, *row),axis=1).tolist()
+        self.training_prompt = self.create_training_prompt()
+
         self.test_df = pd.read_csv(test_data_path)
         self.test_df = self.test_df[["Issue", "Category", "Description"]]
 
@@ -104,11 +106,59 @@ class TicketEngine:
 
         return combined_df
 
-    def recommend(self, test_issue: "Issue" = None, output="value"):
+    def create_training_prompt(self, ):
+        """ Computes the promt for few shot completion from the training data
+
+        This function assembles from the training data a prompt which is used for few shot completion.
+
+        Args:
+            dataframe: A pandas data frame with the raw issues
+        Returns:
+            string: the few shot completion prompt as string
+
+        """
+        training_df = self.training_df
+        training_df["Issue"] = "Issue: " + training_df.loc[:, 'Issue']
+        training_df["Resolution"] = "\nResolution: " + training_df.loc[:, "Resolution"] + "."
+        prompt_text = "Recommend a resolution for an issue.\n" + \
+                        self.training_df.to_csv(header=None, index=False, lineterminator="\n###\n").replace('"', '').replace(
+                          ',\n', '\n')
+        return prompt_text
+
+    def recommend_complete(self, test_data: list):
         """ Computes recommendations for a test_issue
 
-        This function reads in all xlsx, csv, and json files in the given folder, and creates a dataframe,
-        where the data from all files is concatenated.
+        Computes a resolution based on few shot completion
+
+        Args:
+            test_issue: List of 3 entries (Issue theme, category, description
+
+        Returns:
+            string: resolution as completion
+
+        """
+        assert len(test_data) == 3
+        prompt_text = self.training_prompt +\
+                      test_data[0] + "," + test_data[1] + "," + test_data[2] +\
+                      "\nResolution:"
+
+        params = {
+            "prompt": Prompt.from_text(prompt_text),
+            "maximum_tokens": 16,
+            "stop_sequences": [".", ",", "?", "!", "###"],
+        }
+
+
+        request = CompletionRequest(**params)
+        response = self.client.complete(request=request, model="luminous-extended")
+        completion = response.completions[0].completion
+
+        return completion
+
+    def recommend(self, test_data: list = None, output="value"):
+        """ Computes recommendations for a test_issue
+
+        Computes a resolution based on the cosine similarity
 
         Args:
             test_issue: List of 3 entries (Issue theme, category, description
@@ -120,26 +170,43 @@ class TicketEngine:
             string / df: depending on output variable
 
         """
-        assert bool(test_issue), "Must provide issue in form of a list."
-        output_modes = ["value", "df", "solution"]
+        assert len(test_data) == 3, "Must provide issue."
+        output_modes = ["value", "df", "solution", "complete"]
         assert output in output_modes, f"{output} is not in the list of allowed values: {output_modes}"
 
-        results = [
-            {
-                "solution": known_issue.solution,
-                "score": known_issue.score_issue(test_issue),
+        if output == "complete":
+            # use few shot completion to generate a resolution
+            prompt_text = self.training_prompt + \
+                          test_data[0] + "," + test_data[1] + "," + test_data[2] + \
+                          "\nResolution:"
+
+            params = {
+                "prompt": Prompt.from_text(prompt_text),
+                "maximum_tokens": 16,
+                "stop_sequences": [".", ",", "?", "!", "###"],
             }
-            for known_issue in self.training_issues
-        ]
-        sorted_results = sorted(results, key=lambda d: d["score"], reverse=True)
+
+            request = CompletionRequest(**params)
+            response = self.client.complete(request=request, model="luminous-extended")
+            results = response.completions[0].completion
+        else:
+            # compute similarity to known issues for resolution
+            test_issue = Issue(self.client, *test_data)
+            similarity = [
+                {
+                    "solution": known_issue.solution,
+                    "score": known_issue.score_issue(test_issue),
+                }
+                for known_issue in self.training_issues
+            ]
+            results = sorted(similarity, key=lambda d: d["score"], reverse=True)
 
         if output == "solution":
-            return sorted_results[0]["solution"]
+            return results[0]["solution"]
         elif output == "value":
-            return sorted_results[0]["solution"] + " ({:.0%})".format(sorted_results[0]["score"])
-        elif output == "df":
-             return sorted_results
-
+            return results[0]["solution"] + " ({:.0%})".format(results[0]["score"])
+        elif output == "df" or output == "complete":
+            return results
 
     def gradio_single(self):
         """ Creates an interactive gradio UI to create recommendations
@@ -156,11 +223,19 @@ class TicketEngine:
         choices = list(self.training_df['Category'].unique())
         # define gradio components
         inputs = ["text", gr.Dropdown(choices, label="Category", info="Please choose one of the following categories"),
-                  "text"]
+                  "text",
+                  gr.Checkbox(label="Be creative?")]
         outputs = [gr.Textbox(label="You can try the following:")]
+
         # the inference function
-        def infer_single(issue, category, description):
-            return self.recommend(Issue(self.client, issue, category, description))
+        def infer_single(issue, category, description, completion_flag):
+            if completion_flag:
+                output_mode = "complete"
+            else:
+                output_mode = "value"
+
+            result = self.recommend([issue, category, description], output_mode)
+            return result
 
         demo = gr.Interface(
             fn=infer_single,
@@ -184,19 +259,24 @@ class TicketEngine:
          """
         # define gradio components
         inputs = [gr.Dataframe(row_count=(1, "dynamic"), col_count=(3, "fixed"), label="Input Data", interactive=1,
-                               headers=["Issue", "Category", "Description"])]
+                               headers=["Issue", "Category", "Description"]),
+                  gr.Checkbox(label="Be creative?")]
         outputs = [gr.Dataframe(row_count=(1, "dynamic"), col_count=(1, "fixed"), label="Predictions",
-                                headers=["recommendation for solution with percentage likelihood"])]
+                                headers=["recommendation for resolution"])]
         # we will give our dataframe as example
         examples = self.test_df
         # the inference function
-        def infer_df(input_dataframe):
-            return input_dataframe.apply(lambda row: self.recommend(test_issue=Issue(self.client, *row)), axis=1).to_frame(
-                name="recommendation for solution with percentage likelihood")
+        def infer_df(input_dataframe, completion_flag):
+            if completion_flag:
+                output_mode = "complete"
+            else:
+                output_mode = "value"
+
+            result = input_dataframe.apply(lambda row: self.recommend(test_data=row, output=output_mode),
+                                         axis=1).to_frame(name="recommendation for resolution")
+            return result
 
         gr.Interface(fn=infer_df, inputs=inputs, outputs=outputs, examples=[[examples]]).launch(share=True)
-
-    from flask import Flask
 
     def flask_endpoint(self):
         """ Creates a flask http REST endpoint to create recommendations
@@ -221,7 +301,11 @@ class TicketEngine:
             issue = request.form['issue']
             category = request.form['category']
             description = request.form['description']
+            mode = request.form['mode']
             error = None
+
+            if mode not in ("value", "complete"):
+                error = 'Mode not supported'
 
             if not issue:
                 error = 'Issue is required.'
@@ -237,7 +321,7 @@ class TicketEngine:
 
             else:
                 with app.app_context():
-                    return app.config['ENGINE'].recommend(Issue(app.config['ENGINE'].client, issue, category, description))
+                    return app.config['ENGINE'].recommend([issue, category, description], mode)
             return abort(400, 'Invalid input data')
 
         app.run()
